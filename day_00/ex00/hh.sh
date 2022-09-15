@@ -1,7 +1,4 @@
 #!/bin/sh
 
-OUTPUT_FILE="./hh.json"
-VACANCY_AMOUNT="20"
-
-VACANCY_NAME="${1/ /+}"
-curl -k -H 'User-Agent: api-test-agent' -G "https://api.hh.ru/vacancies?text=$VACANCY_NAME&per_page=$VACANCY_AMOUNT" | jq > $OUTPUT_FILE
+role_name="${1/ /+}"
+curl -s -k -H 'User-Agent: api-test-agent' "https://api.hh.ru/vacancies?text=$role_name&per_page=20" | jq > hh.json

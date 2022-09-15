@@ -1,21 +1,8 @@
 #/bin/sh
 
-if [ -z "$1" ]
-  then
-    INPUT_FILE="../ex01/hh.csv"   # default
-  else
-    INPUT_FILE="$1"               # argument
-fi
+cd ../ex01
+sh json_to_csv.sh
+cd ../ex02
 
-OUTPUT_FILE="hh_sorted.csv"
-
-# pass headers
-cat $INPUT_FILE \
-  | head -1 \
-  > $OUTPUT_FILE
-
-# sort
-cat $INPUT_FILE \
-  | tail -n +2 \
-  | sort -t "," -k2 -k1 \
-  >> $OUTPUT_FILE
+head -n 1 > hh_sorted.csv < ../ex01/hh.csv
+tail -n +2 < ../ex01/hh.csv | sort -t "," -k2,2 -k1,1 >> hh_sorted.csv
