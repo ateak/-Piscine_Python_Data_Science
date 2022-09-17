@@ -1,8 +1,11 @@
-#/bin/sh
+#!/bin/sh
 
 cd ../ex01
 sh json_to_csv.sh
 cd ../ex02
 
-head -n 1 > hh_sorted.csv < ../ex01/hh.csv
-tail -n +2 < ../ex01/hh.csv | sort -t "," -k2,2 -k1,1 >> hh_sorted.csv
+head -n 1 > hh_sorted.csv < ../ex01/hh.csv # берем первую строчку с заголовками
+tail -n +2 < ../ex01/hh.csv | sort -t "," -k2 -k1 >> hh_sorted.csv # берем текст, начиная со 2 строки, и сортируем его 
+
+# sort -t - Использовать заданный символ как разделитель полей.
+# sort -k - указать поле, по которому нужно сортировать строки (если не задано, сортировка выполняется по всей строке).

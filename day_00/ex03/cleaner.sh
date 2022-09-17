@@ -1,4 +1,4 @@
-#/bin/sh
+#!/bin/sh
 
 cleaner()
 {
@@ -22,6 +22,9 @@ cleaner()
   print $0}'
 }
 
-# Cleaner without argument
 head -n 1 "../ex02/hh_sorted.csv" > hh_positions.csv
 cat "../ex02/hh_sorted.csv" | while read -r; do cleaner >> hh_positions.csv; done
+
+# FS - разделитель полей;
+# $ - ссылка на колонку по номеру;
+# substr(строка, старт, количество) - обрезает строку и возвращает результат;
