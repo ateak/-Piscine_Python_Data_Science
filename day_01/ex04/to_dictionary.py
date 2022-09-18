@@ -30,7 +30,7 @@ def main():
 			dict_with_countries[i[1]] = [i[0]]
 	for key, values in dict_with_countries.items(): # Метод dict.items() возвращает список кортежей вида (key, value), состоящий из элементов словаря.
 		for value in values:
-			print(f"'{key}' : '{value}'") # f-строки берут значения переменных, которые есть в текущей области видимости, и подставляют их в строку. 
+			print("'%s' : '%s'" %(key,value))
 
 
 if __name__ == "__main__":
