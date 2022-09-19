@@ -1,5 +1,5 @@
 class Must_read:
-    with open("data.csv") as text:
+    with open('data.csv', 'r') as text:
         for line in text:
             print(line, end='')
 

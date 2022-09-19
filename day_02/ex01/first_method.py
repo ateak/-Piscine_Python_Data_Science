@@ -1,9 +1,8 @@
 class Research:
 	def file_reader():
-		with open("data.csv") as text:
-			for line in text:
-				print(line, end='')
+		with open("data.csv", "r") as text:
+			return(text.read()) # чтение всего файла
 
 
 if __name__ == '__main__':
-	Research.file_reader()
+	print(Research.file_reader())
