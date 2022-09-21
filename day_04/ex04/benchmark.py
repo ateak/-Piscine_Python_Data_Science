@@ -1,32 +1,58 @@
 #! /usr/bin/python3
 import timeit
-import sys
-from functools import reduce
+from random import randint
+from collections import Counter
 
-def sum_of_squares_loop(number):
-	res = 0
-	for i in range(1, number + 1):
-		res += i ** 2
-	return res
+def lst_to_dict(lst):
+	dict = {}
+	for item in lst:
+		if item not in dict:
+			dict[item] = 1
+		else:
+			dict[item] += 1
+	return dict
 
-def sum_of_squares_reduce(number):
-    return reduce(lambda x, y: x + y ** 2, [range(1, number + 1)]) 
-	# reduce применяет указанную функцию к элементам последовательности, сводя её к единственному значению.
-	# Левый аргумент x - это накопленное значение, а правый аргумент y - это следующий элемент iterable.
-	
+def top_dict(lst):
+	# Создадим словарь из списка
+	my_dict = lst_to_dict(lst)
+	# Отсортируем, получим список
+	sorted_list = sorted(my_dict.items(), key=lambda item: -int(item[1])) # С помощью параметра key можно указывать, как именно выполнять сортировку. 
+																	      # Параметр key ожидает функцию, с помощью которой должно быть выполнено сравнение.
+	# Возьмем срез первых десяти
+	top_list = sorted_list[:10]
+	# Создадим из списка словарь (нужно по заданию)
+	my_top_dict = dict((x, y) for x, y in top_list)
+	return my_top_dict
+
+def counter_dict(lst):
+	return dict(Counter(lst))
+
+def counter_top_10(lst):
+	return Counter(lst).most_common(10) # most_common() возвращает список из n наиболее распространенных элементов 
+										# и их количество от наиболее распространенных до наименее.
+
+# Counter является подклассом Dictionary и используется для отслеживания элементов и их количества. 
+# Counter – это неупорядоченная коллекция, в которой элементы хранятся, как ключи Dict, а их количество – как значение dict. 
+# Количество элементов счетчика может быть положительным, нулевым или отрицательным целым числом.
+# Отдавая на вход список слов (который list), получаем объект класса Counter, очень похожий на словарь (который dictionary).
+
+def my_time(func_name, lst):
+	times = timeit.timeit(lambda: func_name(lst), number = 1)
+	return times
+
 def main():
 	
-	if len(sys.argv) != 4:
-		raise Exception("invalid args")
-	if (sys.argv[1] == 'loop'):
-		time_exec = timeit.timeit(lambda: sum_of_squares_loop(int(sys.argv[3])), number=int(sys.argv[2]))
-	elif (sys.argv[1] == 'reduce'):
-		time_exec = timeit.timeit(lambda: sum_of_squares_reduce(int(sys.argv[3])), number=int(sys.argv[2]))
-	else:
-		raise Exception("unknown argument")
+	lst = [randint(0, 100) for i in range(1000000)]
 
-	print(time_exec)
+	try:
+		print('my function:', my_time(lst_to_dict, lst))
+		print('Counter:', my_time(counter_dict, lst))
+		print('my top:', my_time(top_dict, lst))
+		print('Counter\'s top:', my_time(counter_top_10, lst))
+	except:
+		print('ERROR')
+# Для обработки исключений используется конструкция try - except. В блоке try мы выполняем инструкцию, которая может породить исключение, 
+# а в блоке except мы перехватываем их. При этом перехватываются как само исключение, так и его потомки.
 
-	
 if __name__ == '__main__':
 	main()
