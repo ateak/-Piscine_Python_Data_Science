@@ -15,14 +15,16 @@ def list_comprehension():
 def map_func():
 	emails = ['john@gmail.com', 'james@gmail.com', 'alice@yahoo.com', 'anna@live.com', 'philipp@gmail.com'] * 5
 	new_emails = list(map(lambda item : None if item.find("@gmail.com") == -1 else item, emails))
+
+#map - идет по итерируемому объекту и применяет какую-то функцию к каждому элементу
 	
 def main():
 
 	ITERATIONS_NUMBER = 9 * 10**7
 
-	time_for_loop = timeit.timeit(setup = loop_and_append, number=ITERATIONS_NUMBER)
-	time_list_comprehension = timeit.timeit(setup = list_comprehension, number=ITERATIONS_NUMBER)
-	time_map = timeit.timeit(setup = map_func, number=ITERATIONS_NUMBER)
+	time_for_loop = timeit.timeit(loop_and_append, number=ITERATIONS_NUMBER)
+	time_list_comprehension = timeit.timeit(list_comprehension, number=ITERATIONS_NUMBER)
+	time_map = timeit.timeit(map_func, number=ITERATIONS_NUMBER)
 
 	min_time = min([time_for_loop, time_list_comprehension, time_map])
 
@@ -33,7 +35,8 @@ def main():
 	else:
 		print('it is better to use a map')
 
-	time_sorted = sorted([time_for_loop, time_list_comprehension, time_map])
+	time_sorted = sorted([time_for_loop, time_list_comprehension, time_map]) 
+	# Функция sorted возвращает новый отсортированный список, который получен из итерируемого объекта, который был передан как аргумент.
 	print(f'{time_sorted[0]} vs {time_sorted[1]} vs {time_sorted[2]}')
 	
 	
